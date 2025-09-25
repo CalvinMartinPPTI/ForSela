@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pixel Anniversary Cutscene</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: "Press Start 2P", monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .scene {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .hidden { display: none; }
+    img {
+      image-rendering: pixelated;
+      margin: 10px;
+    }
+    .bubble {
+      background: white;
+      color: black;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-size: 10px;
+      max-width: 80%;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .pair {
+      position: relative;
+      display: inline-flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    .cat {
+      image-rendering: pixelated;
+      width: 200px;
+      display: block;
+    }
+    .sunflower {
+      image-rendering: pixelated;
+      width: 20vw;
+      max-width: 100px;
+      position: absolute;
+      bottom: 5%;
+      left: 76%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="scene1" class="scene">
+    <p>PRESS START</p>
+  </div>
+  <div id="scene2" class="scene hidden">
+    <img src="/image-removebg-preview (21).png" class="cat">
+    <div id="bubble2" class="bubble hidden"></div>
+  </div>
+  <div id="scene3" class="scene hidden">
+    <p>...</p>
+  </div>
+  <div id="scene4" class="scene hidden" style="gap: 10px;">
+    <div class="pair">
+      <img src="/image-removebg-preview (21).png" class="cat">
+      <img src="/image-removebg-preview (22).png" class="sunflower">
+    </div>
+    <div id="bubble4" class="bubble hidden"></div>
+  </div>
+  <div id="scene5" class="scene hidden">
+    <p>To : Lala<br><br>Happy Aniversary for knowring each other 1 month.<br><br>It's so nice to know you, and I love you now and tommorow<br>until my last breath<br><br>From : V</p>
+  </div>
+  <script>
+    const lobbyMessages = [
+        "Happy anniversary for knowing each other for 1 month.",
+        "It's so nice to know you, and I love you so much."
+    ];
+
+    const sunflowerMessages = [
+        "This sunflower really reminds me of you.",
+        "I've met many people in my life, but you are different. You're too precious to me. I can't stop talking to you. I've never been this happy with someone.",
+        "So please, just stay with me, even when the angels cry watching us. I want to be here for you. my precious one, Tadya Sela.",
+        "I love you now and tomorrow, until my last breath."
+    ];
+
+    let step = 0, idx = 0;
+    document.body.addEventListener("click", () => {
+      if (step === 0) {
+        showScene(2);
+        step = 1; idx = 0;
+        showBubble("bubble2", lobbyMessages[idx]);
+      } else if (step === 1) {
+        idx++;
+        if (idx < lobbyMessages.length) {
+          showBubble("bubble2", lobbyMessages[idx]);
+        } else {
+          showScene(3);
+          step = 2;
+          setTimeout(() => {
+            showScene(4);
+            step = 3; idx = 0;
+            showBubble("bubble4", sunflowerMessages[idx]);
+          }, 1500);
+        }
+      } else if (step === 3) {
+        idx++;
+        if (idx < sunflowerMessages.length) {
+          showBubble("bubble4", sunflowerMessages[idx]);
+        } else {
+          showScene(5);
+          step = 4;
+        }
+      }
+    });
+    function showScene(n) {
+      document.querySelectorAll(".scene").forEach(s => s.classList.add("hidden"));
+      document.getElementById("scene" + n).classList.remove("hidden");
+    }
+    function showBubble(id, text) {
+      const el = document.getElementById(id);
+      el.textContent = text;
+      el.classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
