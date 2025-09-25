@@ -31,13 +31,18 @@
     .bubble {
       background: white;
       color: black;
-      padding: 10px 15px;
+      padding: 12px 18px;
       border-radius: 8px;
       margin-top: 15px;
-      font-size: 10px;
-      max-width: 80%;
+      font-size: 1.2vw; 
+      max-width: 85%;
       text-align: center;
       line-height: 1.5;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+    }
+    .bubble.show {
+      opacity: 1;
     }
     .pair {
       position: relative;
@@ -59,6 +64,20 @@
       left: 76%;
       transform: translateX(-50%);
       z-index: 2;
+    }
+    p {
+      font-size: 1.2vw;
+      line-height: 1.6;
+      max-width: 90%;
+    }
+    @media (max-width: 768px) {
+      .bubble {
+        font-size: 3.5vw;
+        padding: 14px 20px;
+      }
+      p {
+        font-size: 3.5vw;
+      }
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -82,22 +101,29 @@
     <div id="bubble4" class="bubble hidden"></div>
   </div>
   <div id="scene5" class="scene hidden">
-    <p>To : Lala<br><br>Happy Aniversary for knowring each other 1 month.<br><br>It's so nice to know you, and I love you now and tommorow<br>until my last breath<br><br>From : V</p>
+    <p>
+      To : Lala<br><br>
+      Happy anniversary for knowing each other for 1 month.<br><br>
+      It's so nice to know you, and I love you now and tomorrow<br>
+      until my last breath.<br><br>
+      From : V
+    </p>
   </div>
   <script>
     const lobbyMessages = [
-        "Happy anniversary for knowing each other for 1 month.",
-        "It's so nice to know you, and I love you so much."
+      "Happy anniversary for knowing each other for 1 month.",
+      "It's so nice to know you, and I love you so much."
     ];
 
     const sunflowerMessages = [
-        "This sunflower really reminds me of you.",
-        "I've met many people in my life, but you are different. You're too precious to me. I can't stop talking to you. I've never been this happy with someone.",
-        "So please, just stay with me, even when the angels cry watching us. I want to be here for you. my precious one, Tadya Sela.",
-        "I love you now and tomorrow, until my last breath."
+      "This sunflower really reminds me of you.",
+      "I've met many people in my life, but you are different. You're too precious to me. I can't stop talking to you. I've never been this happy with someone.",
+      "So please, just stay with me, even when the angels cry watching us. I want to be here for you. My precious one, Tadya Sela.",
+      "I love you now and tomorrow, until my last breath."
     ];
 
     let step = 0, idx = 0;
+
     document.body.addEventListener("click", () => {
       if (step === 0) {
         showScene(2);
@@ -126,14 +152,17 @@
         }
       }
     });
+
     function showScene(n) {
       document.querySelectorAll(".scene").forEach(s => s.classList.add("hidden"));
       document.getElementById("scene" + n).classList.remove("hidden");
     }
+
     function showBubble(id, text) {
       const el = document.getElementById(id);
       el.textContent = text;
       el.classList.remove("hidden");
+      setTimeout(() => el.classList.add("show"), 10);
     }
   </script>
 </body>
